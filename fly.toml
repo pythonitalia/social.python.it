@@ -8,7 +8,7 @@ kill_timeout = 5
 #   release_command = "bin/rails db:migrate"
 
 [env]
-  LOCAL_DOMAIN = "social-python-it.fly.dev"
+  LOCAL_DOMAIN = "social.python.it"
   WEB_CONCURRENCY = "0" # exactly 1 Puma process
   OVERMIND_FORMATION = "sidekiq=1" # exactly 1 sidekiq process
   MALLOC_ARENA_MAX = "2"
@@ -18,7 +18,7 @@ kill_timeout = 5
   RAILS_SERVE_STATIC_FILES = "false"
   REDIS_HOST = "social-python-it-redis.internal"
   REDIS_PORT = "6379"
-  ## Storage on S3 also requires secrets named AWS_ACCESS_KEY_ID and 
+  ## Storage on S3 also requires secrets named AWS_ACCESS_KEY_ID and
   ## AWS_SECRET_ACCESS_KEY. If you use this, remove [mounts] below.
   # S3_ENABLED=true
   # S3_BUCKET=social-python-it-bucket
