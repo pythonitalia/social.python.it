@@ -44,7 +44,7 @@ information. The feeds can be regenerated using `tootctl`, so persistence is
 
 ```
 $ fly apps create social-python-it-redis
-$ bin/fly-redis volumes create --region sjc --size 1 mastodon_redis
+$ bin/fly-redis volumes create --region lhr --size 1 mastodon_redis
 $ bin/fly-redis deploy
 ```
 
@@ -59,7 +59,7 @@ Create that volume below, or remove the `[mounts]` section and uncomment
 ##### Option 1: Local volume
 
 ```
-$ fly volumes create --region sjc mastodon_uploads
+$ fly volumes create --region lhr mastodon_uploads
 ```
 
 ##### Option 2: S3, etc
@@ -80,7 +80,7 @@ To serve cloud-stored images directly from your domain, set `S3_ALIAS_HOST` in
 #### Postgres database
 
 ```
-$ fly pg create --region sjc --name social-python-it-db
+$ fly pg create --region lhr --name social-python-it-db
 $ fly pg attach social-python-it-db
 $ fly deploy -c fly.setup.toml # run `rails db:schema:load`, may take 2-3 minutes
 ```
