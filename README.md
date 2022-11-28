@@ -96,7 +96,7 @@ See `fly.toml` for an example of the env vars you would set, and then provide
 your credentials as Fly secrets:
 
 ```
-$ fly secrets set SMTP_LOGIN=<public token> SMTP_PASSWORD=<secret token> SMTP_HOST=smtp.eu.mailgun.org
+$ fly secrets set SMTP_LOGIN=<public token> SMTP_PASSWORD=<secret token> SMTP_SERVER=smtp.eu.mailgun.org
 ```
 
 #### Custom domain (optional)
