@@ -6,8 +6,8 @@ kill_timeout = 5
 swap_size_mb = 1024
 
 ## Uncomment if you are upgrading Mastodon. See README.md for details.
-# [deploy]
-#   release_command = "bin/rails db:migrate"
+[deploy]
+  release_command = "bin/rails db:migrate"
 
 [env]
   LOCAL_DOMAIN = "social.python.it"
