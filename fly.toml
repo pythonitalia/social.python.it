@@ -3,6 +3,8 @@ app = "social-python-it"
 kill_signal = "SIGINT"
 kill_timeout = 5
 
+swap_size_mb = 1024
+
 ## Uncomment if you are upgrading Mastodon. See README.md for details.
 # [deploy]
 #   release_command = "bin/rails db:migrate"
