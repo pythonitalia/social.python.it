@@ -1,6 +1,6 @@
-FROM tootsuite/mastodon-streaming:v4.3.0 as streaming
+FROM tootsuite/mastodon-streaming:v4.3.7 as streaming
 
-FROM tootsuite/mastodon:v4.3.0
+FROM tootsuite/mastodon:v4.3.7
 
 USER root
 RUN mkdir -p /var/cache/apt/archives/partial && \
