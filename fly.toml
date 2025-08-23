@@ -6,7 +6,7 @@ kill_timeout = "5s"
 swap_size_mb = 1024
 
 [[vm]]
-  memory = "512mb"
+  memory = "1024"
 
 ## Uncomment if you are upgrading Mastodon. See README.md for details.
 # [deploy]
