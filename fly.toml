@@ -8,9 +8,10 @@ swap_size_mb = 1024
 [[vm]]
   memory = "1024"
 
-## Uncomment if you are upgrading Mastodon. See README.md for details.
-# [deploy]
-#   release_command = "bin/rails db:migrate"
+## Keep standard post-deploy migrations enabled.
+## Use fly.predeploy.toml for releases that require pre-deployment migrations.
+[deploy]
+  release_command = "bin/rails db:migrate"
 
 [env]
   LOCAL_DOMAIN = "social.python.it"
@@ -52,7 +53,7 @@ swap_size_mb = 1024
 #   rails = "./overmind start -x rails"
 #   # If you need to run more sidekiq workers, scale up this group
 #   # by running `fly scale count N --group sidekiq`
-#   sidekiq = "bash -c 'bundle exec sidekiq -c $MAX_THREADS -q default,8 -q push,6 -q ingress,4 -q mailers,2 -q pull'"
+#   sidekiq = "bash -c 'bundle exec sidekiq -c $MAX_THREADS -q default,8 -q push,6 -q ingress,4 -q mailers,2 -q pull,1 -q fasp,1'"
 #   # The schedule queue can only ever have one worker process at a time
 #   # by running fly scale count 1 --group schedule
 #   schedule = "bash -c 'bundle exec sidekiq -c $MAX_THREADS'"

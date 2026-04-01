@@ -21,10 +21,10 @@ fly apps create mastodon-example
 ### Secrets
 
 ```bash
-export SECRET_KEY_BASE=$(docker run --rm -it tootsuite/mastodon:latest bin/rake secret)
-export OTP_SECRET=$(docker run --rm -it tootsuite/mastodon:latest bin/rake secret)
-fly secrets set OTP_SECRET=$OTP_SECRET SECRET_KEY_BASE=$SECRET_KEY_BASE
-docker run --rm -e OTP_SECRET=$OTP_SECRET -e SECRET_KEY_BASE=$SECRET_KEY_BASE -it tootsuite/mastodon:latest bin/rake mastodon:webpush:generate_vapid_key | sed 's/\r//' | fly secrets import
+export MASTODON_VERSION=v4.5.7
+export SECRET_KEY_BASE=$(docker run --rm -it tootsuite/mastodon:$MASTODON_VERSION bin/rake secret)
+fly secrets set SECRET_KEY_BASE=$SECRET_KEY_BASE
+docker run --rm -e SECRET_KEY_BASE=$SECRET_KEY_BASE -it tootsuite/mastodon:$MASTODON_VERSION bin/rake mastodon:webpush:generate_vapid_key | sed 's/\r//' | fly secrets import
 ```
 
 ### Redis server
@@ -134,15 +134,17 @@ If your instance is getting slow or falling over, you may find [Scaling Mastodon
 
 ### Upgrading Mastodon
 
-To upgrade to a new version of Mastodon, change the version number on the first line of `Dockerfile`, and then check the [release notes](https://github.com/mastodon/mastodon/blob/main/CHANGELOG.md) for upgrade instructions.
+To upgrade to a new version of Mastodon, update the Mastodon image tags in [`Dockerfile`](./Dockerfile), and then check the [release notes](https://github.com/mastodon/mastodon/blob/main/CHANGELOG.md) for upgrade instructions.
 
-If there are migrations that need to be run, make sure that the release command in [`fly.toml`](./fly.toml) is uncommented.
+This repo keeps the Fly release command enabled in [`fly.toml`](./fly.toml), so standard post-deploy migrations run automatically during `fly deploy`.
+
+Before upgrading to Mastodon 4.5.x or newer, make sure your Fly Postgres app is already on PostgreSQL 14 or newer and your Redis app is already on Redis 7 or newer.
 
 If there are migrations that must be run before deploying to avoid downtime, you can run the pre-deploy migrations using a second app. By scaling this app to a VM count of zero, it won't add to our bill, but it will let us run the pre-deploy migrations as a release command before the web processes get the new code.
 
 ```bash
 fly apps create mastodon-example-predeploy
-bin/fly-predeploy secrets set OTP_SECRET=placeholder SECRET_KEY_BASE=placeholder
+bin/fly-predeploy secrets set SECRET_KEY_BASE=placeholder
 bin/fly-predeploy secrets set $(fly ssh console -C env | grep DATABASE_URL)
 bin/fly-predeploy scale memory 1024
 bin/fly-predeploy scale count 0
