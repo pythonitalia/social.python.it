@@ -1,6 +1,6 @@
-FROM tootsuite/mastodon-streaming:v4.6.4 as streaming
+FROM tootsuite/mastodon-streaming:v4.7.4 as streaming
 
-FROM tootsuite/mastodon:v4.6.4
+FROM tootsuite/mastodon:v4.7.4
 
 USER root
 

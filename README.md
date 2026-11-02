@@ -21,7 +21,7 @@ fly apps create mastodon-example
 ### Secrets
 
 ```bash
-export MASTODON_VERSION=v4.6.4
+export MASTODON_VERSION=v4.7.4
 export SECRET_KEY_BASE=$(docker run --rm -it tootsuite/mastodon:$MASTODON_VERSION bin/rake secret)
 fly secrets set SECRET_KEY_BASE=$SECRET_KEY_BASE
 docker run --rm -e SECRET_KEY_BASE=$SECRET_KEY_BASE -it tootsuite/mastodon:$MASTODON_VERSION bin/rake mastodon:webpush:generate_vapid_key | sed 's/\r//' | fly secrets import
